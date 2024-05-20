@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from .models import Property, User
+from .models import Property, Owner
 
-class UserSerializer(serializers.ModelSerializer):
+class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Owner
         fields = "__all__"
 
 class PropertySerializer(serializers.ModelSerializer):
