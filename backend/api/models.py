@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
-class Owner(models.Model):
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=40, unique=True)
     first_name = models.CharField(max_length=40)
@@ -22,4 +24,4 @@ class Property(models.Model):
     nearby = models.TextField()
     zip_code = models.CharField(max_length=40)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
