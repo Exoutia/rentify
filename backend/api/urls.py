@@ -1,18 +1,18 @@
 from django.urls import path
 
 from .views import (
-    OwnerListCreateView,
-    OwnerRetrieveUpdateDestroyView,
     PropertyListCreateView,
     PropertyRetrieveUpdateDestroyView,
+    UserProfiesListView,
+    UserProfileRetrieveView,
 )
 
 urlpatterns = [
-    path("owners/", OwnerListCreateView.as_view(), name="owner-list-create"),
+    path("users/", UserProfiesListView.as_view(), name="user-profiles-list"),
     path(
-        "owners/<int:pk>/",
-        OwnerRetrieveUpdateDestroyView.as_view(),
-        name="owner-retrieve-update-destroy",
+        "users/<int:pk>",
+        UserProfileRetrieveView.as_view(),
+        name="user-retrieve",
     ),
     path("properties/", PropertyListCreateView.as_view(), name="property-list-create"),
     path(
