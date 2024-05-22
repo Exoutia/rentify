@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,6 @@ SECRET_KEY = "django-insecure-jve_h=eykf&u4t_l%&=171g5erx4gk2a#h!8(fni#xudh*4i%1
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 
 # Application definition
@@ -68,16 +68,17 @@ CORS_ALLOWED_ORIGINS = [
 ROOT_URLCONF = "backend.urls"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
     # Schema settings
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     # JWT settings
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
+
+SIMPLE_JWT = {"ACCESS_TOKEN_LIFETIME": timedelta(minutes=30)}
 
 TEMPLATES = [
     {
