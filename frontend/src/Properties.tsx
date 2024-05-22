@@ -7,8 +7,8 @@ const Properties: React.FC = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await api.get('/api/properties');
-        setProperties(response.data);
+        const response = await api.get('/api/properties/');
+        setProperties(response.data.results);
       } catch (error) {
         console.error('Error fetching properties', error);
       }
@@ -17,13 +17,14 @@ const Properties: React.FC = () => {
     fetchProperties();
   }, [])
 
+  // TODO: Fix the refresh problem of login token after token expired if refreshed token in still valid.
   return (
     <div>
       <h2>Property List</h2>
       <ul>
-        {properties.map((property) => {
-          <li key={property.id}>{property.name}</li>
-        })}
+        {properties.map((property) => (
+          <li key={property?.id}>{property?.name}</li>
+        ))}
       </ul>
     </div>
   );

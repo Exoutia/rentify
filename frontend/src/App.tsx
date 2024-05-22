@@ -1,18 +1,34 @@
-import './App.css'
-
 import Login from './Login'
-import { useState } from 'react'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import ErrorPage from './error-page';
+import Properties from './Properties';
+import Root from './Root';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
 
+      {
+        path: "properties/",
+        element: <Properties />
+      },
+      {
+        path: "login/",
+        element: <Login setToken={(token: string) => {
+          localStorage.setItem('token', token);
+        }} />
+      }
+    ]
+  },
+])
 
 function App() {
 
-  const [token, setToken] = useState<string>(localStorage.getItem('token')|| '')
   return (
-    <Login setToken={(token: string) => {
-      setToken(token);
-      localStorage.setItem('token', token);
-    }} />
+    <RouterProvider router={router} />
   )
 }
 
