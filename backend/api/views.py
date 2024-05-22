@@ -17,7 +17,7 @@ class RegisterUserProfile(APIView):
             user_profile = serializer.save()
             return Response(
                 {
-                    "user": UserProfileSerializer(user_profile).data,
+                    "user_profile": UserProfileSerializer(user_profile).data,
                 },
                 status=status.HTTP_201_CREATED,
             )
