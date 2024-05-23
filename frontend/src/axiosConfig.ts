@@ -33,7 +33,6 @@ const refreshToken = async () => {
       return null;
     }
   }
-  return null;
 };
 
 api.interceptors.response.use(
@@ -49,6 +48,10 @@ api.interceptors.response.use(
         axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
+      } else {
+        return {
+          message: "Go to login now"
+        }
       }
     }
     return Promise.reject(error);
