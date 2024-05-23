@@ -29,7 +29,7 @@ const Login: React.FC = () => {
         username,
         password,
       });
-      localStorage.setItem('token', response.data.access);
+      localStorage.setItem('accessToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
       navigate('/properties/');
     } catch (error) {
