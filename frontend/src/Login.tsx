@@ -15,11 +15,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 
-interface LoginProps {
-  setToken: (token: string) => void;
-}
 
-const Login: React.FC<LoginProps> = ({ setToken }) => {
+const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
@@ -32,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
         username,
         password,
       });
-      setToken(response.data.access);
+      localStorage.setItem('token', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
       navigate('/properties/');
     } catch (error) {
@@ -65,13 +62,8 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
           </CardFooter>
         </Card>
       </form>
-      <Button onClick={() => {
-        console.log("this is clicked")
-        return redirect('/properties/')
-      }}>Redirect</Button>
     </div>
   );
-
 };
 
 export default Login;

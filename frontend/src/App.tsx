@@ -17,9 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: "login/",
-        element: <Login setToken={(token: string) => {
-          localStorage.setItem('token', token);
-        }} />
+        element: <Login />
       }
     ]
   },
