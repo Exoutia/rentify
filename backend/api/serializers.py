@@ -57,11 +57,14 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        user = User.objects.get(username=attrs["username"])
-        user_profile = UserProfile.objects.get(user=user)
-        if user_profile is None:
-            data["message"] = "User profile not found"
-        else:
-            data["owner_id"] = user_profile.id
+        try:
+            user = User.objects.get(username=attrs["username"])
+            try:
+                user_profile = UserProfile.objects.get(user=user)
+                data["owner_id"] = user_profile.id
+            except UserProfile.DoesNotExist:
+                data["error"] = "user profile not found"
+        except User.DoesNotExist:
+            data["error"] = "user not found"
 
         return data

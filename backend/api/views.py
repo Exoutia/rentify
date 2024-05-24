@@ -5,7 +5,11 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import Property, UserProfile
-from .serializers import PropertySerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
+from .serializers import (
+    CustomTokenObtainPairSerializer,
+    PropertySerializer,
+    UserProfileSerializer,
+)
 
 
 @extend_schema(tags=["Auth"])
@@ -56,3 +60,15 @@ class PropertyRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            if "error" in serializer.validated_data:
+                return Response(
+                    {"error": serializer.validated_data["error"]},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(
+            {"error": "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST
+        )
