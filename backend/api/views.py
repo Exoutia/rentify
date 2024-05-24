@@ -2,9 +2,10 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import Property, UserProfile
-from .serializers import PropertySerializer, UserProfileSerializer, UserSerializer
+from .serializers import PropertySerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
 
 
 @extend_schema(tags=["Auth"])
@@ -50,3 +51,8 @@ class PropertyRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+

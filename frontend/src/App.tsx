@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from './error-page';
 import Properties from './Properties';
 import Root from './Root';
+import PostProperty from './PostProperties';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "login/",
         element: <Login />
+      },
+      {
+        path: "post-property/",
+        element: <PostProperty />
       }
     ]
   },

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import Property, UserProfile
 
@@ -50,3 +51,16 @@ class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
         fields = "__all__"
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = User.objects.get(username=attrs["username"])
+        user_profile = UserProfile.objects.get(user=user)
+
+        # Add custom claims
+        data["owner_id"] = user_profile.id
+
+        return data

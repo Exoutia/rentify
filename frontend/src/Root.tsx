@@ -18,6 +18,13 @@ export default function Root() {
           >
             Properties
           </Link>
+
+          <Link
+            to={'post-property/'}
+            className="text-foreground transition-colors hover:text-foreground"
+          >
+            Create Property
+          </Link>
         </nav>
       </header>
       <div className="main">

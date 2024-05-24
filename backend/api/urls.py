@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (
+    CustomTokenObtainPairView,
     PropertyListCreateView,
     PropertyRetrieveUpdateDestroyView,
     RegisterUserProfile,
@@ -22,4 +23,5 @@ urlpatterns = [
         PropertyRetrieveUpdateDestroyView.as_view(),
         name="property-retrieve-update-destroy",
     ),
+    path("token/", CustomTokenObtainPairView.as_view(), name="get-token"),
 ]
