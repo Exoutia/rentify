@@ -59,8 +59,9 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         user = User.objects.get(username=attrs["username"])
         user_profile = UserProfile.objects.get(user=user)
-
-        # Add custom claims
-        data["owner_id"] = user_profile.id
+        if user_profile is None:
+            data["message"] = "User profile not found"
+        else:
+            data["owner_id"] = user_profile.id
 
         return data
